@@ -8,8 +8,8 @@ const Index = () => {
 
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.5,
-      rootMargin: '-100px'
+      threshold: 0.3,
+      rootMargin: '-50px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -82,17 +82,17 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
-        <div className="container mx-auto px-6 py-4">
+      <nav className="fixed top-0 w-full bg-white/98 backdrop-blur-md z-50 border-b border-gray-100 shadow-sm">
+        <div className="container mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-heading font-bold">INTERIOR DESIGN STUDIO</h1>
-            <div className="hidden md:flex gap-8">
+            <h1 className="text-3xl font-heading font-bold tracking-tight">Interior Design</h1>
+            <div className="hidden md:flex gap-10">
               {['home', 'portfolio', 'services', 'team', 'process', 'pricing', 'contact'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className={`text-sm font-medium transition-colors hover:text-gold ${
-                    activeSection === section ? 'text-gold' : 'text-gray-600'
+                  className={`text-base font-medium transition-all duration-300 hover:text-gold relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-gold after:scale-x-0 after:transition-transform hover:after:scale-x-100 ${
+                    activeSection === section ? 'text-gold after:scale-x-100' : 'text-gray-700'
                   }`}
                 >
                   {section === 'home' && 'Главная'}
@@ -109,20 +109,23 @@ const Index = () => {
         </div>
       </nav>
 
-      <section id="home" className="pt-32 pb-20 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center animate-fade-in">
-            <h2 className="text-6xl md:text-7xl font-heading font-bold mb-6 leading-tight">
-              Создаём пространства<br />вашей мечты
-            </h2>
-            <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+      <section id="home" className="pt-32 pb-20 px-6 min-h-screen flex items-center bg-gradient-to-br from-white via-gray-50 to-white">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center">
+            <div className="animate-slide-up">
+              <h2 className="text-7xl md:text-8xl lg:text-9xl font-heading font-bold mb-10 leading-[0.95] tracking-tight">
+                Создаём<br />пространства<br />
+                <span className="italic text-gold animate-float inline-block">вашей мечты</span>
+              </h2>
+            </div>
+            <p className="text-2xl md:text-3xl text-gray-600 mb-16 max-w-3xl mx-auto animate-fade-in font-light leading-relaxed" style={{ animationDelay: '300ms' }}>
               Профессиональная визуализация, дизайн интерьеров и авторская мебель
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-6 justify-center flex-wrap animate-slide-up" style={{ animationDelay: '600ms' }}>
               <Button 
                 size="lg" 
                 onClick={() => scrollToSection('contact')}
-                className="bg-primary text-white hover:bg-primary/90 px-8 py-6 text-lg"
+                className="bg-primary text-white hover:bg-gold hover:scale-105 px-14 py-8 text-xl rounded-full shadow-2xl transition-all duration-500 hover:shadow-gold/50"
               >
                 Начать проект
               </Button>
@@ -130,36 +133,38 @@ const Index = () => {
                 size="lg" 
                 variant="outline"
                 onClick={() => scrollToSection('portfolio')}
-                className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-6 text-lg transition-all"
+                className="border-2 border-primary text-primary hover:bg-primary hover:text-white hover:scale-105 px-14 py-8 text-xl rounded-full transition-all duration-500"
               >
-                Портфолио
+                Смотреть работы
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="portfolio" className="py-20 px-6 bg-gray-50 fade-section">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-5xl font-heading font-bold text-center mb-4">Наши проекты</h2>
-          <p className="text-center text-gray-600 mb-16">Избранные работы студии</p>
-          <div className="grid md:grid-cols-3 gap-8">
+      <section id="portfolio" className="py-32 px-6 fade-section">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-20 animate-slide-up">
+            <h2 className="text-6xl md:text-7xl font-heading font-bold mb-6 tracking-tight">Портфолио</h2>
+            <p className="text-2xl text-gray-600 font-light">Избранные работы студии</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             {portfolioItems.map((item, index) => (
               <Card 
                 key={item.id} 
-                className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 animate-scale-in"
-                style={{ animationDelay: `${index * 150}ms` }}
+                className="group overflow-hidden border-0 shadow-xl hover:shadow-3xl transition-all duration-700 animate-scale-in rounded-3xl"
+                style={{ animationDelay: `${index * 200}ms` }}
               >
-                <div className="relative overflow-hidden aspect-[4/5]">
+                <div className="relative overflow-hidden aspect-[3/4]">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-125"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                    <p className="text-sm font-medium text-gold mb-2">{item.category}</p>
-                    <h3 className="text-xl font-heading font-semibold">{item.title}</h3>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
+                  <div className="absolute bottom-0 left-0 right-0 p-8 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-700">
+                    <p className="text-base font-medium text-gold mb-3 tracking-wide uppercase">{item.category}</p>
+                    <h3 className="text-3xl font-heading font-semibold">{item.title}</h3>
                   </div>
                 </div>
               </Card>
@@ -168,93 +173,101 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="services" className="py-20 px-6 fade-section">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-5xl font-heading font-bold text-center mb-4">Наши услуги</h2>
-          <p className="text-center text-gray-600 mb-16">Полный спектр дизайнерских решений</p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <section id="services" className="py-32 px-6 bg-gray-50 fade-section">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-20 animate-slide-up">
+            <h2 className="text-6xl md:text-7xl font-heading font-bold mb-6 tracking-tight">Услуги</h2>
+            <p className="text-2xl text-gray-600 font-light">Полный спектр дизайнерских решений</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
             {services.map((service, index) => (
               <Card 
                 key={index} 
-                className="p-8 text-center hover:shadow-xl transition-all duration-300 border-0 animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="p-10 text-center hover:shadow-2xl transition-all duration-500 border-0 rounded-3xl hover:-translate-y-2 animate-fade-in"
+                style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gold/10 mb-6">
-                  <Icon name={service.icon} className="w-8 h-8 text-gold" />
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gold/10 mb-8 group-hover:scale-110 transition-transform">
+                  <Icon name={service.icon} className="w-10 h-10 text-gold" />
                 </div>
-                <h3 className="text-xl font-heading font-semibold mb-3">{service.title}</h3>
-                <p className="text-gray-600">{service.description}</p>
+                <h3 className="text-2xl font-heading font-semibold mb-4">{service.title}</h3>
+                <p className="text-gray-600 text-lg font-light leading-relaxed">{service.description}</p>
               </Card>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="team" className="py-20 px-6 bg-gray-50 fade-section">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-5xl font-heading font-bold text-center mb-4">Наша команда</h2>
-          <p className="text-center text-gray-600 mb-16">Профессионалы своего дела</p>
-          <div className="grid md:grid-cols-3 gap-12">
+      <section id="team" className="py-32 px-6 fade-section">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-20 animate-slide-up">
+            <h2 className="text-6xl md:text-7xl font-heading font-bold mb-6 tracking-tight">Наша команда</h2>
+            <p className="text-2xl text-gray-600 font-light">Профессионалы своего дела</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-16">
             {team.map((member, index) => (
-              <div key={index} className="text-center animate-fade-in" style={{ animationDelay: `${index * 150}ms` }}>
-                <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center text-6xl">
+              <div key={index} className="text-center animate-fade-in group" style={{ animationDelay: `${index * 200}ms` }}>
+                <div className="w-40 h-40 mx-auto mb-8 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-7xl group-hover:scale-110 transition-transform duration-500 shadow-xl">
                   {member.image}
                 </div>
-                <h3 className="text-2xl font-heading font-semibold mb-2">{member.name}</h3>
-                <p className="text-gold font-medium">{member.role}</p>
+                <h3 className="text-3xl font-heading font-semibold mb-3">{member.name}</h3>
+                <p className="text-gold font-medium text-xl">{member.role}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="process" className="py-20 px-6 fade-section">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-5xl font-heading font-bold text-center mb-4">Процесс работы</h2>
-          <p className="text-center text-gray-600 mb-16">Как мы создаём проекты</p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <section id="process" className="py-32 px-6 bg-gray-50 fade-section">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-20 animate-slide-up">
+            <h2 className="text-6xl md:text-7xl font-heading font-bold mb-6 tracking-tight">Процесс работы</h2>
+            <p className="text-2xl text-gray-600 font-light">Как мы создаём проекты</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
             {process.map((item, index) => (
-              <div key={index} className="relative animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-                <div className="text-6xl font-heading font-bold text-gray-100 mb-4">{item.step}</div>
-                <h3 className="text-2xl font-heading font-semibold mb-3">{item.title}</h3>
-                <p className="text-gray-600">{item.description}</p>
+              <div key={index} className="relative animate-slide-right group" style={{ animationDelay: `${index * 150}ms` }}>
+                <div className="text-8xl font-heading font-bold text-gray-100 mb-6 group-hover:text-gold/20 transition-colors duration-500">{item.step}</div>
+                <h3 className="text-3xl font-heading font-semibold mb-4">{item.title}</h3>
+                <p className="text-gray-600 text-lg font-light leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="pricing" className="py-20 px-6 bg-gray-50 fade-section">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-5xl font-heading font-bold text-center mb-4">Тарифы</h2>
-          <p className="text-center text-gray-600 mb-16">Выберите подходящий пакет услуг</p>
-          <div className="grid md:grid-cols-3 gap-8">
+      <section id="pricing" className="py-32 px-6 fade-section">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-20 animate-slide-up">
+            <h2 className="text-6xl md:text-7xl font-heading font-bold mb-6 tracking-tight">Тарифы</h2>
+            <p className="text-2xl text-gray-600 font-light">Выберите подходящий пакет услуг</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-10">
             {pricing.map((plan, index) => (
               <Card 
                 key={index} 
-                className={`p-8 ${index === 1 ? 'border-2 border-gold shadow-xl scale-105' : 'border-0'} animate-scale-in`}
-                style={{ animationDelay: `${index * 150}ms` }}
+                className={`p-12 ${index === 1 ? 'border-2 border-gold shadow-2xl scale-105 bg-gradient-to-br from-white to-gold/5' : 'border-0 hover:shadow-2xl'} rounded-3xl transition-all duration-500 hover:-translate-y-2 animate-scale-in`}
+                style={{ animationDelay: `${index * 200}ms` }}
               >
                 {index === 1 && (
-                  <div className="inline-block px-4 py-1 bg-gold text-white text-sm font-medium rounded-full mb-4">
+                  <div className="inline-block px-6 py-2 bg-gold text-white text-base font-medium rounded-full mb-6 shadow-lg">
                     Популярный
                   </div>
                 )}
-                <h3 className="text-2xl font-heading font-bold mb-2">{plan.name}</h3>
-                <div className="text-4xl font-heading font-bold mb-6">{plan.price}</div>
-                <ul className="space-y-3 mb-8">
+                <h3 className="text-3xl font-heading font-bold mb-3">{plan.name}</h3>
+                <div className="text-5xl font-heading font-bold mb-10 text-gold">{plan.price}</div>
+                <ul className="space-y-5 mb-12">
                   {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <Icon name="Check" className="w-5 h-5 text-gold mt-0.5" />
-                      <span className="text-gray-600">{feature}</span>
+                    <li key={i} className="flex items-start gap-4">
+                      <Icon name="Check" className="w-6 h-6 text-gold mt-1 flex-shrink-0" />
+                      <span className="text-gray-600 text-lg">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Button 
-                  className={`w-full ${index === 1 ? 'bg-gold hover:bg-gold/90' : 'bg-primary hover:bg-primary/90'}`}
+                  className={`w-full py-7 text-lg rounded-full shadow-lg transition-all duration-500 ${index === 1 ? 'bg-gold hover:bg-gold/90 hover:scale-105' : 'bg-primary hover:bg-gold hover:scale-105'}`}
                   onClick={() => scrollToSection('contact')}
                 >
-                  Выбрать
+                  Выбрать тариф
                 </Button>
               </Card>
             ))}
@@ -262,56 +275,64 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="contact" className="py-20 px-6 fade-section">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-5xl font-heading font-bold text-center mb-4">Свяжитесь с нами</h2>
-          <p className="text-center text-gray-600 mb-16">Готовы обсудить ваш проект</p>
-          <Card className="p-12 border-0 shadow-xl">
-            <div className="grid md:grid-cols-2 gap-12">
-              <div>
-                <h3 className="text-2xl font-heading font-semibold mb-6">Контактная информация</h3>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <Icon name="Phone" className="w-6 h-6 text-gold mt-1" />
+      <section id="contact" className="py-32 px-6 bg-gradient-to-br from-gray-50 to-white fade-section">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-20 animate-slide-up">
+            <h2 className="text-6xl md:text-7xl font-heading font-bold mb-6 tracking-tight">Свяжитесь с нами</h2>
+            <p className="text-2xl text-gray-600 font-light">Готовы обсудить ваш проект</p>
+          </div>
+          <Card className="p-16 border-0 shadow-2xl rounded-3xl">
+            <div className="grid md:grid-cols-2 gap-16">
+              <div className="animate-slide-right">
+                <h3 className="text-3xl font-heading font-semibold mb-10">Контакты</h3>
+                <div className="space-y-8">
+                  <div className="flex items-start gap-5 group">
+                    <div className="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors">
+                      <Icon name="Phone" className="w-6 h-6 text-gold" />
+                    </div>
                     <div>
-                      <p className="font-medium mb-1">Телефон</p>
-                      <p className="text-gray-600">+7 (495) 123-45-67</p>
+                      <p className="font-semibold mb-2 text-lg">Телефон</p>
+                      <p className="text-gray-600 text-lg">+7 (495) 123-45-67</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <Icon name="Mail" className="w-6 h-6 text-gold mt-1" />
+                  <div className="flex items-start gap-5 group">
+                    <div className="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors">
+                      <Icon name="Mail" className="w-6 h-6 text-gold" />
+                    </div>
                     <div>
-                      <p className="font-medium mb-1">Email</p>
-                      <p className="text-gray-600">hello@studio.com</p>
+                      <p className="font-semibold mb-2 text-lg">Email</p>
+                      <p className="text-gray-600 text-lg">hello@studio.com</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <Icon name="MapPin" className="w-6 h-6 text-gold mt-1" />
+                  <div className="flex items-start gap-5 group">
+                    <div className="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors">
+                      <Icon name="MapPin" className="w-6 h-6 text-gold" />
+                    </div>
                     <div>
-                      <p className="font-medium mb-1">Адрес</p>
-                      <p className="text-gray-600">Москва, ул. Примерная, 1</p>
+                      <p className="font-semibold mb-2 text-lg">Адрес</p>
+                      <p className="text-gray-600 text-lg">Москва, ул. Примерная, 1</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div>
-                <form className="space-y-4">
+              <div className="animate-fade-in" style={{ animationDelay: '300ms' }}>
+                <form className="space-y-6">
                   <input
                     type="text"
                     placeholder="Ваше имя"
-                    className="w-full px-4 py-3 border border-gray-200 focus:border-gold outline-none transition-colors"
+                    className="w-full px-6 py-5 border-2 border-gray-200 rounded-full focus:border-gold outline-none transition-all text-lg"
                   />
                   <input
                     type="email"
                     placeholder="Email"
-                    className="w-full px-4 py-3 border border-gray-200 focus:border-gold outline-none transition-colors"
+                    className="w-full px-6 py-5 border-2 border-gray-200 rounded-full focus:border-gold outline-none transition-all text-lg"
                   />
                   <textarea
-                    placeholder="Сообщение"
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-200 focus:border-gold outline-none transition-colors resize-none"
+                    placeholder="Расскажите о вашем проекте"
+                    rows={5}
+                    className="w-full px-6 py-5 border-2 border-gray-200 rounded-3xl focus:border-gold outline-none transition-all resize-none text-lg"
                   />
-                  <Button className="w-full bg-gold hover:bg-gold/90 text-white py-6">
+                  <Button className="w-full bg-gold hover:bg-gold/90 hover:scale-105 text-white py-7 text-lg rounded-full shadow-xl transition-all duration-500">
                     Отправить сообщение
                   </Button>
                 </form>
@@ -321,16 +342,22 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="bg-primary text-white py-12 px-6">
-        <div className="container mx-auto max-w-6xl text-center">
-          <h3 className="text-2xl font-heading font-bold mb-4">INTERIOR DESIGN STUDIO</h3>
-          <p className="text-white/70 mb-6">Создаём пространства вашей мечты</p>
-          <div className="flex justify-center gap-6">
-            <Icon name="Instagram" className="w-6 h-6 cursor-pointer hover:text-gold transition-colors" />
-            <Icon name="Facebook" className="w-6 h-6 cursor-pointer hover:text-gold transition-colors" />
-            <Icon name="Mail" className="w-6 h-6 cursor-pointer hover:text-gold transition-colors" />
+      <footer className="bg-primary text-white py-16 px-6">
+        <div className="container mx-auto max-w-7xl text-center">
+          <h3 className="text-4xl font-heading font-bold mb-6">Interior Design Studio</h3>
+          <p className="text-white/70 mb-10 text-xl font-light">Создаём пространства вашей мечты</p>
+          <div className="flex justify-center gap-8 mb-10">
+            <div className="w-12 h-12 rounded-full bg-white/10 hover:bg-gold flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110">
+              <Icon name="Instagram" className="w-6 h-6" />
+            </div>
+            <div className="w-12 h-12 rounded-full bg-white/10 hover:bg-gold flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110">
+              <Icon name="Facebook" className="w-6 h-6" />
+            </div>
+            <div className="w-12 h-12 rounded-full bg-white/10 hover:bg-gold flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110">
+              <Icon name="Mail" className="w-6 h-6" />
+            </div>
           </div>
-          <p className="text-white/50 text-sm mt-8">© 2024 Interior Design Studio. Все права защищены.</p>
+          <p className="text-white/50 text-base">© 2024 Interior Design Studio. Все права защищены.</p>
         </div>
       </footer>
     </div>
